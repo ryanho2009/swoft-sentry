@@ -1,0 +1,36 @@
+{
+    "name": "gaodeng/swoft-sentry",
+    "type": "library",
+    "keywords": [
+        "swoft",
+        "log",
+        "sentry",
+        "async"
+    ],
+    "description": "Sentry log component for Swoft",
+    "license": "Apache-2.0",
+    "require": {
+        "sentry/sentry": "1.10.0",
+        "swoft/framework": "^1.0"
+    },
+    "require-dev": {
+        "swoft/swoole-ide-helper": "dev-master",
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gaodeng\\SwoftSentry\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gaodeng\\SwoftSentry\\": "test/Cases"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.laravel-china.org"
+        }
+    ]
+}
