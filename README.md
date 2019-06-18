@@ -28,7 +28,7 @@ sentry log definition
         'flushInterval' => 100,
         'flushRequest'  => true,
         'handlers'      => [
-            '${applicationSentryHandler}',   //添加handler
+            '${sentryHandler}',   //添加handler
             //...  其他handler
         ],
     ],
