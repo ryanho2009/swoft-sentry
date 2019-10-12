@@ -11,11 +11,12 @@
     "license": "Apache-2.0",
     "require": {
         "sentry/sentry": "1.10.0",
-        "swoft/framework": "^1.0"
+        "swoft/framework": "^2.0",
+        "swlib/saber": "^1.0"
     },
     "require-dev": {
         "swoft/swoole-ide-helper": "dev-master",
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^7.5"
     },
     "autoload": {
         "psr-4": {
@@ -27,10 +28,10 @@
             "Gaodeng\\SwoftSentry\\": "test/Cases"
         }
     },
-    "repositories": [
-        {
+    "repositories": {
+        "packagist": {
             "type": "composer",
-            "url": "https://packagist.laravel-china.org"
+            "url": "https://mirrors.aliyun.com/composer/"
         }
-    ]
+    }
 }

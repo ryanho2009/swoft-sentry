@@ -36,20 +36,15 @@ class RavenClient extends \Raven_Client
      * @return bool
      */
     protected function send_http_asynchronous($url, $data, $headers){
-
-        go(function () use ($url, $data, $headers){
-            $method = 'POST';
-            $client = new \Swoft\HttpClient\Client([
-                'adapter' => 'coroutine'
+        // swoft2.0 推荐用sgo函数 用saber提交数据
+        sgo(function () use ($url, $data, $headers) { //改为使用Saber来替代httpClient上报
+            $urlArr = parse_url($url);
+            $saber = \Swlib\Saber::create([
+                'base_uri' => $urlArr['scheme'].'://'.$urlArr['host'],
+                'timeout' => 2,
+                'headers' => array_merge($headers,['Expect' => ''])
             ]);
-            // Http
-           $client->request($method, '', [
-                'base_uri' => $url,
-                '_options' => [
-                    'timeout' => 2,
-                ],
-                'headers' => array_merge($headers,['Expect' => '']),
-            ]);
+            $saber->post($urlArr['path'], $data);
         });
         return true;
     }
