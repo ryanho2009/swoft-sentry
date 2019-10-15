@@ -1,13 +1,13 @@
 {
-    "name": "gaodeng/swoft-sentry",
+    "name": "gaodeng/swoft2-sentry",
     "type": "library",
     "keywords": [
-        "swoft",
+        "swoft2",
         "log",
         "sentry",
         "async"
     ],
-    "description": "Sentry log component for Swoft",
+    "description": "Sentry log component for Swoft2.0",
     "license": "Apache-2.0",
     "require": {
         "sentry/sentry": "1.10.0",
