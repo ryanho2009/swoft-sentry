@@ -1,11 +1,11 @@
 # swoft-sentry
-Sentry log component for Swoft
+Sentry log component for Swoft2.0
 
 Usage：
 
 install
 ```php
-composer require gaodeng/sowft-sentry
+composer require rpr/sowft-sentry
 ```
 
 sentry log definition
