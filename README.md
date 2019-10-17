@@ -16,6 +16,7 @@ sentry log definition
         'class'     => \Gaodeng\SwoftSentry\SentryHandler::class,
         'dsn'       => 'YOUR SENTRY DSN',
         'formatter' => '${lineFormatter}',
+        'curlMethod'=> 'co', //curlMethod可以是co,async和exec
         'levels'    => 'error,info', //2.0.1支持直接逗号分隔的字符串
     ],
 
