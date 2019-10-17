@@ -3,21 +3,31 @@ namespace Gaodeng\SwoftSentry;
 
 use Monolog\Handler\RavenHandler;
 use Monolog\Logger;
-use Swoft\App;
+use Swoft\Log\Logger as SwoftLogger;
 
 class SentryHandler extends RavenHandler
 {
 
     /**
-     * @var array 输出包含日志级别集合
+     * @var string|array 输出包含日志级别集合
      */
-    protected $levels = [];
+    protected $levels = '';
 
     /**
-     * @var string sentry dsn
+     * @var array sentry dsn
      */
     protected $dsn = "";
 
+
+    /**
+     * @var string curlMethod 可以是:co/async/exec
+     */
+    protected $curlMethod = 'co';
+
+    /**
+     * @var array
+     */
+    protected $levelValues = [];
 
     /**
      * @param int          $level       The minimum logging level at which this handler will be triggered
@@ -28,6 +38,24 @@ class SentryHandler extends RavenHandler
         $this->setLevel($level);
         $this->bubble = $bubble;
 
+    }
+
+    public function init(): void
+    {
+        if (is_array($this->levels)) {
+            if (is_string($this->levels[0])) { // Levels like ['notice','error']
+                $this->levelValues = SwoftLogger::getLevelByNames($this->levels);
+            } else {
+                $this->levelValues = $this->levels;
+            }
+            return;
+        }
+
+        // Levels like 'notice,error'
+        if (is_string($this->levels)) {
+            $levelNames        = explode(',', $this->levels);
+            $this->levelValues = SwoftLogger::getLevelByNames($levelNames);
+        }
     }
 
     /**
@@ -45,7 +73,7 @@ class SentryHandler extends RavenHandler
         if(is_null($this->ravenClient)){
             $options = [
                 'dsn' => $this->dsn,
-                'curl_method' => App::isCoContext() ? 'co' : 'sync'
+                'curl_method' => $this->curlMethod,
             ];
             $this->ravenClient = new RavenClient($options);
         }
@@ -95,10 +123,9 @@ class SentryHandler extends RavenHandler
         if (empty($this->levels)) {
             return true;
         }
-        return in_array($record['level'], $this->levels);
+        if (!is_array($this->levelValues)) {
+            return false;
+        }
+        return in_array($record['level'], $this->levelValues);
     }
-
-
-
-
 }

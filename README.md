@@ -9,25 +9,22 @@ composer require rpr/sowft-sentry
 ```
 
 sentry log definition
-编辑 config/beans/log.php 添加如下内容定义
+编辑 app/bean.php 添加如下内容定义
 ```php
 
     'sentryHandler' => [
         'class'     => \Gaodeng\SwoftSentry\SentryHandler::class,
-        'dsn' => 'YOUR SENTRY DSN',
+        'dsn'       => 'YOUR SENTRY DSN',
         'formatter' => '${lineFormatter}',
-        'levels'    => [
-            \Swoft\Log\Logger::ERROR,
-            \Swoft\Log\Logger::WARNING,
-        ],
+        'curlMethod'=> 'co', //curlMethod可以是co,async和exec
+        'levels'    => 'error,info', //2.0.1支持直接逗号分隔的字符串
     ],
 
     'logger' => [
-        'name'          => APP_NAME,
-        'enable'        => true,
-        'flushInterval' => 100,
-        'flushRequest'  => true,
-        'handlers'      => [
+        'flushRequest' => false,
+        'enable'       => true,
+        'json'         => true,
+        'handlers'     => [
             '${sentryHandler}',   //添加handler
             //...  其他handler
         ],
