@@ -14,7 +14,7 @@ class SentryHandler extends RavenHandler
     protected $levels = '';
 
     /**
-     * @var array sentry dsn
+     * @var string sentry dsn
      */
     protected $dsn = "";
 
